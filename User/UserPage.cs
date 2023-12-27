@@ -104,13 +104,13 @@ namespace User
                     try
                     {
 
-                        string queryTransaction = "insert into [Transactions] (sender_id, recipient_id, amount, transaction_datetime) VALUES (@sender_id, @recipient_id, @amount, @transaction_datetime)";
+                        string queryTransaction = "INSERT INTO Transactions (sender_id, recipient_id, amount, transaction_datetime) VALUES (:sender_id, :recipient_id, :amount, :transaction_datetime)";
                         using (command = new SQLiteCommand(queryTransaction, connection))
                         {
-                            command.Parameters.AddWithValue("@sender_id", GetID(this.Text));
-                            command.Parameters.AddWithValue("@recipient_id", GetID(recipient));
-                            command.Parameters.AddWithValue("@amount", amount);
-                            command.Parameters.AddWithValue("@transaction_datetime", DT);
+                            command.Parameters.AddWithValue("sender_id", GetID(this.Text));
+                            command.Parameters.AddWithValue("recipient_id", GetID(recipient));
+                            command.Parameters.AddWithValue("amount", amount);
+                            command.Parameters.AddWithValue("transaction_datetime", DateTime.Now.ToString());
                             command.ExecuteNonQuery();
                         }
                     }
