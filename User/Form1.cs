@@ -48,7 +48,7 @@ namespace User
 
                     if (CheckBankEmployee(username, password))
                     {
-                        BankEmployeePage BEP = new BankEmployeePage();
+                        BankEmployeePage BEP = new BankEmployeePage(username);
                         BEP.Show();
                         this.Hide();
                     }

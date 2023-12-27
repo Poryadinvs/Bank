@@ -35,6 +35,9 @@
             textBox2 = new TextBox();
             textBox3 = new TextBox();
             label3 = new Label();
+            button2 = new Button();
+            listBox1 = new ListBox();
+            label4 = new Label();
             SuspendLayout();
             // 
             // label1
@@ -95,11 +98,41 @@
             label3.TabIndex = 8;
             label3.Text = "Баланс";
             // 
+            // button2
+            // 
+            button2.Location = new Point(12, 250);
+            button2.Name = "button2";
+            button2.Size = new Size(371, 31);
+            button2.TabIndex = 9;
+            button2.Text = "Запросить отчет";
+            button2.UseVisualStyleBackColor = true;
+            // 
+            // listBox1
+            // 
+            listBox1.FormattingEnabled = true;
+            listBox1.ItemHeight = 25;
+            listBox1.Location = new Point(398, 77);
+            listBox1.Name = "listBox1";
+            listBox1.Size = new Size(266, 204);
+            listBox1.TabIndex = 10;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(398, 23);
+            label4.Name = "label4";
+            label4.Size = new Size(59, 25);
+            label4.TabIndex = 11;
+            label4.Text = "Отчет";
+            // 
             // UserPage
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(395, 278);
+            ClientSize = new Size(676, 293);
+            Controls.Add(label4);
+            Controls.Add(listBox1);
+            Controls.Add(button2);
             Controls.Add(label3);
             Controls.Add(textBox3);
             Controls.Add(textBox2);
@@ -123,5 +156,8 @@
         private TextBox textBox2;
         private TextBox textBox3;
         private Label label3;
+        private Button button2;
+        private ListBox listBox1;
+        private Label label4;
     }
 }
