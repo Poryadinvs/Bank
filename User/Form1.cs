@@ -203,14 +203,14 @@ namespace User
 
         private void button2_Click(object sender, EventArgs e)
         {
-            AccauntReport AR = new AccauntReport();
+            UserProfile UP = new UserProfile();
 
             string selectRole = comboBox1.SelectedItem.ToString();
             switch (selectRole)
             {
                 case "User":
 
-                    AR.Show();
+                    UP.Show();
                     this.Hide();
                     break;
 

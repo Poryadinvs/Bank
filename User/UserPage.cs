@@ -99,19 +99,25 @@ namespace User
                         command.ExecuteNonQuery();
                     }
 
-                    string DT = DateTime.Now.ToString();
 
                     try
                     {
 
-                        string queryTransaction = "INSERT INTO Transactions (sender_id, recipient_id, amount, transaction_datetime) VALUES (:sender_id, :recipient_id, :amount, :transaction_datetime)";
+                        int senserID = GetID(this.Text);
+                        int recipientID = GetID(recipient);
+                        decimal am = amount;
+                        string DT = DateTime.Now.ToString();
+
+                        string queryTransaction = "INSERT INTO Transactions (sender_id, recipient_id, amount, transaction_datetime) VALUES (@sender_id, @recipient_id, @amount, @transaction_datetime)";
                         using (command = new SQLiteCommand(queryTransaction, connection))
                         {
-                            command.Parameters.AddWithValue("sender_id", GetID(this.Text));
-                            command.Parameters.AddWithValue("recipient_id", GetID(recipient));
-                            command.Parameters.AddWithValue("amount", amount);
-                            command.Parameters.AddWithValue("transaction_datetime", DateTime.Now.ToString());
+                            command.Parameters.AddWithValue("@sender_id", senserID);
+                            command.Parameters.AddWithValue("@recipient_id", recipientID);
+                            command.Parameters.AddWithValue("@amount", am);
+                            command.Parameters.AddWithValue("@transaction_datetime", DT);
                             command.ExecuteNonQuery();
+                            MessageBox.Show($"Средства были отправлены: \n Id отправителя{GetID(this.Text)}; Id получателя {GetID(recipient)}; Веремя отправки{DT}; Сумма отправки: {amount}");
+
                         }
                     }
                     catch (Exception ex)
@@ -119,7 +125,6 @@ namespace User
                         MessageBox.Show($"Не получилось сохранить инофрмацию о переводе: {ex.Message}");
                     }
 
-                    MessageBox.Show($"Id отправителя{GetID(this.Text)}; Id получателя {GetID(recipient)}; Веремя отправки{DT}; Сумма отправки: {amount}");
                 }
 
 
@@ -150,13 +155,13 @@ namespace User
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show($"Ошбика получения ID: {ex.Message}");
                 return -1;
             }
 
-           
+
         }
     }
 }
