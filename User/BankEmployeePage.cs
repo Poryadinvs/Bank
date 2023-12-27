@@ -9,11 +9,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SQLite;
 using System.Data.Entity.Core.Metadata.Edm;
+using System.Net.Sockets;
 
 namespace User
 {
     public partial class BankEmployeePage : Form
     {
+        private TcpClient client;
+        private Thread clientThread;
 
         private const string ConnectionString = "Data Source=Bank.db;Version=3;";
         private static SQLiteCommand command;
@@ -21,6 +24,59 @@ namespace User
         {
             InitializeComponent();
             this.Text = userName;
+            ConnaectToServer();
+        }
+
+        private void ConnaectToServer()
+        {
+            client = new TcpClient("127.0.0.1", 9000);
+            clientThread = new Thread(new ThreadStart(ListenForData));
+            clientThread.Start();
+        }
+
+        private void ListenForData()
+        {
+            while (true)
+            {
+                try
+                {
+                    byte[] bytes = new byte[1024];
+                    NetworkStream stream = client.GetStream();
+
+                    int byteRead = stream.Read(bytes,0,bytes.Length);
+                    string receiveData = Encoding.UTF8.GetString(bytes,0,byteRead);
+
+                    UpdateListBoxes(receiveData);
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show($"Error {ex.Message}");
+                }
+            }
+        }
+
+        private void UpdateListBoxes(string data)
+        {
+         
+            if (listBox1.InvokeRequired || listBox3.InvokeRequired)
+            {
+                listBox1.Invoke(new Action(() => UpdateListBoxes(data)));
+                listBox3.Invoke(new Action(() => UpdateListBoxes(data)));
+            }
+            else
+            {
+                string[] tablesData = data.Split(new[] { "Transactions:", "UserProfile:" }, StringSplitOptions.RemoveEmptyEntries);
+
+                if (tablesData.Length >= 2)
+                {
+                    listBox1.Items.Clear();
+                    listBox1.Items.AddRange(tablesData[0].Split('\n'));
+
+                    listBox3.Items.Clear();
+                    listBox3.Items.AddRange(tablesData[1].Split('\n'));
+                }
+            }
+            
         }
 
         private void BankEmployeePage_Load(object sender, EventArgs e)
