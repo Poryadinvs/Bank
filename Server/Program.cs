@@ -25,18 +25,23 @@ static void HandleClient(object obj)
 
     NetworkStream stream = tcpClient.GetStream();
 
-    StringBuilder dataToSend = new StringBuilder();
+    while (true)
+    {
+        StringBuilder dataToSend = new StringBuilder();
 
-    dataToSend.AppendLine("Transactions:");
-    dataToSend.AppendLine(GetTableData("Transactions"));
+        dataToSend.AppendLine("Transactions:");
+        dataToSend.AppendLine(GetTableData("Transactions"));
 
-    dataToSend.AppendLine("UserProfile:");
-    dataToSend.AppendLine(GetTableData("UserProfile"));
+        dataToSend.AppendLine("UserProfile:");
+        dataToSend.AppendLine(GetTableData("UserProfile"));
 
-    byte[] data = Encoding.UTF8.GetBytes(dataToSend.ToString());
-    stream.Write(data, 0, data.Length);
+        byte[] data = Encoding.UTF8.GetBytes(dataToSend.ToString());
+        stream.Write(data, 0, data.Length);
 
-    tcpClient.Close();
+        // Добавим паузу перед отправкой новых данных, чтобы клиент успел получить предыдущие данные
+        Thread.Sleep(5000);
+    }
+    //tcpClient.Close();
 }
 
 static string GetTableData(string tableName)

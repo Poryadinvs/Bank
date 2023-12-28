@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Data.SQLite;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Net.Sockets;
 
 namespace User
 {
@@ -162,6 +163,25 @@ namespace User
             }
 
 
+        }
+        private TcpClient client;
+        private async void button2_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                client = new TcpClient("127.0.0.1", 9000);
+
+                // Отправляем запрос от третьей формы
+                byte[] requestData = Encoding.UTF8.GetBytes("CustomRequest");
+                await client.GetStream().WriteAsync(requestData, 0, requestData.Length);
+
+                // Закрываем соединение после отправки запроса
+                client.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error {ex.Message}");
+            }
         }
     }
 }

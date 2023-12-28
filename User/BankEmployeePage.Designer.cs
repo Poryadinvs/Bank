@@ -47,6 +47,7 @@
             label9 = new Label();
             label10 = new Label();
             label11 = new Label();
+            button3 = new Button();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
@@ -68,14 +69,14 @@
             listBox1.ItemHeight = 25;
             listBox1.Location = new Point(12, 37);
             listBox1.Name = "listBox1";
-            listBox1.Size = new Size(244, 254);
+            listBox1.Size = new Size(517, 254);
             listBox1.TabIndex = 1;
             // 
             // listBox2
             // 
             listBox2.FormattingEnabled = true;
             listBox2.ItemHeight = 25;
-            listBox2.Location = new Point(273, 37);
+            listBox2.Location = new Point(535, 37);
             listBox2.Name = "listBox2";
             listBox2.Size = new Size(244, 254);
             listBox2.TabIndex = 3;
@@ -83,7 +84,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(273, 9);
+            label2.Location = new Point(524, 9);
             label2.Name = "label2";
             label2.Size = new Size(132, 25);
             label2.TabIndex = 2;
@@ -113,15 +114,15 @@
             // 
             listBox3.FormattingEnabled = true;
             listBox3.ItemHeight = 25;
-            listBox3.Location = new Point(535, 37);
+            listBox3.Location = new Point(786, 37);
             listBox3.Name = "listBox3";
-            listBox3.Size = new Size(244, 254);
+            listBox3.Size = new Size(517, 254);
             listBox3.TabIndex = 7;
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(535, 9);
+            label3.Location = new Point(786, -1);
             label3.Name = "label3";
             label3.Size = new Size(255, 25);
             label3.TabIndex = 6;
@@ -231,11 +232,22 @@
             label11.TabIndex = 10;
             label11.Text = "Создание профила пользователю";
             // 
+            // button3
+            // 
+            button3.Location = new Point(785, 311);
+            button3.Name = "button3";
+            button3.Size = new Size(506, 99);
+            button3.TabIndex = 11;
+            button3.Text = "Обновить данные";
+            button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click;
+            // 
             // BankEmployeePage
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(809, 676);
+            ClientSize = new Size(1315, 676);
+            Controls.Add(button3);
             Controls.Add(label11);
             Controls.Add(label10);
             Controls.Add(splitContainer1);
@@ -281,5 +293,6 @@
         private Label label9;
         private Label label10;
         private Label label11;
+        private Button button3;
     }
 }

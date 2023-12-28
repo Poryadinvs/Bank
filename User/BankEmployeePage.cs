@@ -43,12 +43,12 @@ namespace User
                     byte[] bytes = new byte[1024];
                     NetworkStream stream = client.GetStream();
 
-                    int byteRead = stream.Read(bytes,0,bytes.Length);
-                    string receiveData = Encoding.UTF8.GetString(bytes,0,byteRead);
+                    int byteRead = stream.Read(bytes, 0, bytes.Length);
+                    string receiveData = Encoding.UTF8.GetString(bytes, 0, byteRead);
 
                     UpdateListBoxes(receiveData);
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     MessageBox.Show($"Error {ex.Message}");
                 }
@@ -57,7 +57,7 @@ namespace User
 
         private void UpdateListBoxes(string data)
         {
-         
+
             if (listBox1.InvokeRequired || listBox3.InvokeRequired)
             {
                 listBox1.Invoke(new Action(() => UpdateListBoxes(data)));
@@ -76,7 +76,27 @@ namespace User
                     listBox3.Items.AddRange(tablesData[1].Split('\n'));
                 }
             }
-            
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            RequestDataFromServer();
+        }
+
+
+        private void RequestDataFromServer()
+        {
+            try
+            {
+                // Отправим серверу запрос на обновление данных
+                byte[] requestData = Encoding.UTF8.GetBytes("RefreshData");
+                client.GetStream().Write(requestData, 0, requestData.Length);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error {ex.Message}");
+            }
         }
 
         private void BankEmployeePage_Load(object sender, EventArgs e)
@@ -158,9 +178,9 @@ namespace User
                                             command.Parameters.AddWithValue("@user_id", UserID);
                                             command.Parameters.AddWithValue("@TransactionInfo", infoAboutTransaction);
                                             command.ExecuteNonQuery();
-                                            MessageBox.Show($"Отчет о переводе был создан, была передана следующаия информация:\n" + 
-                                                $"ID сотрудника банка,который делела очет: {EmploID}\n" + $"Username запрашивающего: {usrNmae}\n" + 
-                                                $"ID пользователя: {UserID}" + 
+                                            MessageBox.Show($"Отчет о переводе был создан, была передана следующаия информация:\n" +
+                                                $"ID сотрудника банка,который делела очет: {EmploID}\n" + $"Username запрашивающего: {usrNmae}\n" +
+                                                $"ID пользователя: {UserID}" +
                                                 $"Информация о транзакции: {infoAboutTransaction}");
                                         }
 
@@ -170,7 +190,7 @@ namespace User
                                     {
                                         MessageBox.Show($"Не удалось отправть данные о транзакции: {ex.Message}");
                                     }
-                                
+
                                 }
 
 
@@ -192,5 +212,7 @@ namespace User
                 MessageBox.Show($"Не удалось подключиться к БД:{ex.Message}");
             }
         }
+
+       
     }
 }
