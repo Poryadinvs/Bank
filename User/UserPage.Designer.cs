@@ -38,6 +38,7 @@
             button2 = new Button();
             listBox1 = new ListBox();
             label4 = new Label();
+            button3 = new Button();
             SuspendLayout();
             // 
             // label1
@@ -112,9 +113,9 @@
             // 
             listBox1.FormattingEnabled = true;
             listBox1.ItemHeight = 25;
-            listBox1.Location = new Point(398, 77);
+            listBox1.Location = new Point(389, 64);
             listBox1.Name = "listBox1";
-            listBox1.Size = new Size(266, 204);
+            listBox1.Size = new Size(266, 254);
             listBox1.TabIndex = 10;
             // 
             // label4
@@ -126,11 +127,22 @@
             label4.TabIndex = 11;
             label4.Text = "Отчет";
             // 
+            // button3
+            // 
+            button3.Location = new Point(12, 287);
+            button3.Name = "button3";
+            button3.Size = new Size(371, 31);
+            button3.TabIndex = 12;
+            button3.Text = "Отчеты";
+            button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click;
+            // 
             // UserPage
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(676, 293);
+            ClientSize = new Size(676, 330);
+            Controls.Add(button3);
             Controls.Add(label4);
             Controls.Add(listBox1);
             Controls.Add(button2);
@@ -160,5 +172,6 @@
         private Button button2;
         private ListBox listBox1;
         private Label label4;
+        private Button button3;
     }
 }

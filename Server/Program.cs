@@ -7,12 +7,11 @@ using System.Data.SQLite;
 
 TcpListener server = new TcpListener(IPAddress.Parse("127.0.0.1"), 9000);
 server.Start();
-
 while (true)
 {
     Console.WriteLine("Waiting for a client to connect...");
 
-    TcpClient client = server.AcceptTcpClient();
+    TcpClient client = await server.AcceptTcpClientAsync();
     Console.WriteLine("Client connected!");
 
     Thread clientThread = new Thread(new ParameterizedThreadStart(HandleClient));
@@ -35,13 +34,18 @@ static void HandleClient(object obj)
         dataToSend.AppendLine("UserProfile:");
         dataToSend.AppendLine(GetTableData("UserProfile"));
 
+        dataToSend.AppendLine("Request:");
+        dataToSend.AppendLine(GetTableData("Request"));
+
+        dataToSend.AppendLine("Request:");
+        dataToSend.AppendLine(GetTableData("Request"));
+
+
         byte[] data = Encoding.UTF8.GetBytes(dataToSend.ToString());
         stream.Write(data, 0, data.Length);
 
-        // Добавим паузу перед отправкой новых данных, чтобы клиент успел получить предыдущие данные
         Thread.Sleep(5000);
     }
-    //tcpClient.Close();
 }
 
 static string GetTableData(string tableName)
@@ -56,7 +60,12 @@ static string GetTableData(string tableName)
 
     while (reader.Read())
     {
-        tableData.AppendLine($"{reader[0]}, {reader[1]}, {reader[2]}, {reader[3]}, {reader[4]}");
+        StringBuilder rowData = new StringBuilder();
+        for (int i = 0; i < reader.FieldCount; i++)
+        {
+            rowData.Append($"{reader[i]}, ");
+        }
+        tableData.AppendLine(rowData.ToString().TrimEnd(',', ' '));
     }
 
     reader.Close();

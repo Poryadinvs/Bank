@@ -57,23 +57,26 @@ namespace User
 
         private void UpdateListBoxes(string data)
         {
-
-            if (listBox1.InvokeRequired || listBox3.InvokeRequired)
+            if (listBox1.InvokeRequired || listBox3.InvokeRequired || listBox2.InvokeRequired)
             {
                 listBox1.Invoke(new Action(() => UpdateListBoxes(data)));
                 listBox3.Invoke(new Action(() => UpdateListBoxes(data)));
+                listBox2.Invoke(new Action(() => UpdateListBoxes(data)));
             }
             else
             {
-                string[] tablesData = data.Split(new[] { "Transactions:", "UserProfile:" }, StringSplitOptions.RemoveEmptyEntries);
+                string[] tablesData = data.Split(new[] { "Transactions:", "UserProfile:", "Request:" }, StringSplitOptions.RemoveEmptyEntries);
 
-                if (tablesData.Length >= 2)
+                if (tablesData.Length >= 3)
                 {
                     listBox1.Items.Clear();
                     listBox1.Items.AddRange(tablesData[0].Split('\n'));
 
                     listBox3.Items.Clear();
                     listBox3.Items.AddRange(tablesData[1].Split('\n'));
+
+                    listBox2.Items.Clear();
+                    listBox2.Items.AddRange(tablesData[2].Split('\n'));
                 }
             }
 
@@ -89,7 +92,6 @@ namespace User
         {
             try
             {
-                // Отправим серверу запрос на обновление данных
                 byte[] requestData = Encoding.UTF8.GetBytes("RefreshData");
                 client.GetStream().Write(requestData, 0, requestData.Length);
             }
@@ -161,7 +163,7 @@ namespace User
                             int EmploID = Convert.ToInt32(result);
                             try
                             {
-                                string queryGetUserID = "select user_id from Uers where username = @userName";
+                                string queryGetUserID = "select user_id from User where username = @userName";
                                 using (command = new SQLiteCommand(queryGetUserID, connection))
                                 {
                                     command.Parameters.AddWithValue("@userName", usrNmae);

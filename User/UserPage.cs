@@ -164,23 +164,67 @@ namespace User
 
 
         }
-        private TcpClient client;
-        private async void button2_Click(object sender, EventArgs e)
+
+
+
+        private void button2_Click(object sender, EventArgs e)
         {
-            try
+            int senderID = GetID(this.Text);
+            string senderUsername = this.Text;
+
+            using (SQLiteConnection connection = new SQLiteConnection(ConnectionString))
             {
-                client = new TcpClient("127.0.0.1", 9000);
+                connection.Open();
+                string query = "Insert into Request (sender_id, sender_username) values (@sender_id, @sender_username)";
+                try
+                {
+                    using (command = new SQLiteCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@sender_id", senderID);
+                        command.Parameters.AddWithValue("@sender_username", senderUsername);
+                        command.ExecuteNonQuery();
+                        MessageBox.Show("Зарос был отправлен");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Не получилось отправить запрос: {ex.Message}");
+                }
 
-                // Отправляем запрос от третьей формы
-                byte[] requestData = Encoding.UTF8.GetBytes("CustomRequest");
-                await client.GetStream().WriteAsync(requestData, 0, requestData.Length);
-
-                // Закрываем соединение после отправки запроса
-                client.Close();
             }
-            catch (Exception ex)
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            using (SQLiteConnection connection = new SQLiteConnection(ConnectionString))
             {
-                MessageBox.Show($"Error {ex.Message}");
+                connection.Open();
+                string usr = this.Text;
+                string query = "select * from AccountReport where name_of_user = @username";
+                using (SQLiteCommand command = new SQLiteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@username", usr);
+
+                    using (SQLiteDataReader reader = command.ExecuteReader())
+                    {
+                        listBox1.Items.Clear();
+
+                        while (reader.Read())
+                        {
+                            // Пройдемся по всем столбцам
+                            for (int i = 0; i < reader.FieldCount; i++)
+                            {
+                                string columnName = reader.GetName(i);
+                                string columnValue = reader[i].ToString();
+                                string message = $"{columnName}: {columnValue}";
+                                MessageBox.Show(message);
+
+                                // Добавим строку в listBox1
+                                listBox1.Items.Add(message);
+                            }
+                        }
+                    }
+                }
             }
         }
     }
