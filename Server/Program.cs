@@ -7,15 +7,23 @@ using System.Data.SQLite;
 
 TcpListener server = new TcpListener(IPAddress.Parse("127.0.0.1"), 9000);
 server.Start();
+List<TcpClient> count = new List<TcpClient>();
+int maxConnected = 5;
 while (true)
 {
     Console.WriteLine("Waiting for a client to connect...");
 
-    TcpClient client = await server.AcceptTcpClientAsync();
-    Console.WriteLine("Client connected!");
-
-    Thread clientThread = new Thread(new ParameterizedThreadStart(HandleClient));
-    clientThread.Start(client);
+    if (count.Count <= maxConnected)
+    {
+        TcpClient client = await server.AcceptTcpClientAsync();
+        Console.WriteLine("Client connected!");
+        count.Add(client);
+        Thread clientThread = new Thread(new ParameterizedThreadStart(HandleClient));
+        clientThread.Start(client);
+    }
+    else { Console.WriteLine("Сервер перегружен, подключитесь позже");
+        server.Stop();
+    }
 }
 
 static void HandleClient(object obj)

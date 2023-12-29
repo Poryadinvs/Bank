@@ -211,7 +211,6 @@ namespace User
 
                         while (reader.Read())
                         {
-                            // Пройдемся по всем столбцам
                             for (int i = 0; i < reader.FieldCount; i++)
                             {
                                 string columnName = reader.GetName(i);
@@ -219,7 +218,6 @@ namespace User
                                 string message = $"{columnName}: {columnValue}";
                                 MessageBox.Show(message);
 
-                                // Добавим строку в listBox1
                                 listBox1.Items.Add(message);
                             }
                         }

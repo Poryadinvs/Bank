@@ -17,16 +17,6 @@ namespace User
 
         private void button1_Click(object sender, EventArgs e)
         {
-
-            //command.CommandText = "Select * from User;";
-            //DataTable data = new DataTable();
-            //SQLiteDataAdapter adapter = new SQLiteDataAdapter(command);
-            //adapter.Fill(data);
-            //MessageBox.Show($"Прочитано {data.Rows.Count} записей из Manager");
-            //foreach (DataRow row in data.Rows)
-            //{
-            //    listBox1.Items.Add(row);
-            //}
             string selectRole = comboBox1.SelectedItem.ToString();
             string username = textBox1.Text;
             string password = textBox2.Text;
