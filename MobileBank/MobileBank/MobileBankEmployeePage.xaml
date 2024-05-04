@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MobileBank.MobileBankEmployeePage"
+             Title="">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout HeightRequest="500">
+                <ScrollView>
+                    <StackLayout>
+                        <Label Text="Переводы" TextColor="Black" FontAttributes="Bold"></Label>
+                        <CollectionView x:Name="transactins" HeightRequest="350">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <ScrollView>
+                                        <StackLayout>
+                                            <Line X1="0" X2="600" Stroke="Black"/>
+                                            <Label Text="{Binding transaction_id}"/>
+                                            <Label Text="{Binding sender_id}"/>
+                                            <Label Text="{Binding recipient_id}"/>
+                                            <Label Text="{Binding amount}"/>
+                                            <Label Text="{Binding transaction_datetime}"/>
+                                        </StackLayout>
+                                    </ScrollView>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                        <Label Text="Запросы отчета" TextColor="Black" FontAttributes="Bold"></Label>
+                        <CollectionView x:Name="Requests" HeightRequest="150">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout>
+                                        <Line X1="0" X2="600" Stroke="Black"/>
+                                        <Label Text="{Binding transaction_id}"></Label>
+                                        <Label Text="{Binding sender_id}"></Label>
+                                        <Label Text="{Binding sender_name}"></Label>
+                                    </StackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                        <Label Text="Запросы на создание профиля" TextColor="Black" FontAttributes="Bold"></Label>
+                        <CollectionView x:Name="UserProfileRequest" HeightRequest="350">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout>
+                                        <Line X1="0" X2="600" Stroke="Black"/>
+                                        <Label Text="{Binding profile_id}"></Label>
+                                        <Label Text="{Binding user_id}"></Label>
+                                        <Label Text="{Binding first_name}"></Label>
+                                        <Label Text="{Binding last_name}"></Label>
+                                        <Label Text="{Binding sec_name}"></Label>
+                                        <Label Text="{Binding birth_date}"></Label>
+                                        <Label Text="{Binding address}"></Label>
+                                        <Label Text="{Binding email}"></Label>
+                                        <Label Text="{Binding registration_date}"></Label>
+                                        <Label Text="{Binding employment_type}"></Label>
+                                    </StackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </StackLayout>
+                </ScrollView>
+                <Line X1="0" X2="600" Stroke="Black"/>
+                <StackLayout>
+                    <Label Text="Создание отчета о переводе" TextColor="Black" FontAttributes="Bold"/>
+                    <Entry x:Name="UsersUsername" Placeholder="Username пользователя"/>
+                    <Entry x:Name="Information" Placeholder="Информация о переводе"/>
+                </StackLayout>
+                <StackLayout>
+                    <Label Text="Создание профиля пользвателю" TextColor="Black" FontAttributes="Bold"/>
+                    <Entry x:Name="UsernameForUser" Placeholder="Username пользователя"/>
+                    <Entry x:Name="passwordForUser" Placeholder="Пароль пользователю"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Button x:Name="MakeTransactionREport" Text="Создать отчет о переводе" WidthRequest="125" Clicked="MakeTransactionREport_Clicked"/>
+                    <Button x:Name="MakeUserProfile" Text="Создать профиль рользователю" WidthRequest="125" Clicked="MakeUserProfile_Clicked"/>
+                    <Button x:Name="UpdateData" Text="Обновить данные" WidthRequest="125" Clicked="UpdateData_Clicked"/>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

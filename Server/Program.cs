@@ -31,7 +31,7 @@ static void HandleClient(object obj)
     TcpClient tcpClient = (TcpClient)obj;
 
     NetworkStream stream = tcpClient.GetStream();
-
+    StreamReader reader = new StreamReader(stream);
     while (true)
     {
         StringBuilder dataToSend = new StringBuilder();
@@ -52,13 +52,39 @@ static void HandleClient(object obj)
         byte[] data = Encoding.UTF8.GetBytes(dataToSend.ToString());
         stream.Write(data, 0, data.Length);
 
+        //string query = reader.ReadLine();
+        //if (!string.IsNullOrEmpty(query))
+        //{
+        //    Console.WriteLine($"Received query: {query}");
+        //    ExecuteQuery(query);
+        //}
+
         Thread.Sleep(5000);
     }
 }
 
+//static void ExecuteQuery(string query)
+//{
+//    try
+//    {
+//        SQLiteConnection dbConnection = new SQLiteConnection("Data Source=C:\\Vlad\\Bank\\MobileBank\\MobileBank\\Bank.db;Version=3;");
+//        dbConnection.Open();
+
+//        SQLiteCommand command = new SQLiteCommand(query, dbConnection);
+//        int rowsAffected = command.ExecuteNonQuery();
+//        Console.WriteLine($"Rows affected: {rowsAffected}");
+
+//        dbConnection.Close();
+//    }
+//    catch (Exception ex)
+//    {
+//        Console.WriteLine($"Error executing query: {ex.Message}");
+//    }
+//}
+
 static string GetTableData(string tableName)
 {
-    SQLiteConnection dbConnection = new SQLiteConnection("Data Source=D:\\Влад\\ДОМАХА\\Учебная практика 3 курс\\Банк\\Bank'\\User\\bin\\Debug\\net7.0-windows\\Bank.db;Version=3;");
+    SQLiteConnection dbConnection = new SQLiteConnection("Data Source=C:\\Vlad\\Bank\\MobileBank\\MobileBank\\Bank.db;Version=3;");
     dbConnection.Open();
 
     SQLiteCommand command = new SQLiteCommand($"SELECT * FROM {tableName}", dbConnection);

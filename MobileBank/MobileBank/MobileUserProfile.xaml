@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MobileBank.MobileUserProfile">
+    <ScrollView>
+        <StackLayout>
+            <StackLayout Orientation="Horizontal" WidthRequest="380">
+                <Entry x:Name="Name" Placeholder="Имя" WidthRequest="190"/>
+                <!--<Entry x:Name="DateOfBirth" Placeholder="Дата рождения" WidthRequest="190"/>-->
+                <DatePicker x:Name="DateOfBirth" WidthRequest="190"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal"  WidthRequest="380">
+                <Entry x:Name="SecondName" Placeholder="Фамилия" WidthRequest="190"/>
+                <Entry x:Name="Adres" Placeholder="Адрес" WidthRequest="190"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal"  WidthRequest="380">
+                <Entry x:Name="LastName" Placeholder="Отчесто"  WidthRequest="190"/>
+                <Entry x:Name="TypeOfEmployment" Placeholder="Тип занятости" WidthRequest="190"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal"  WidthRequest="380">
+                <Entry x:Name="EMail" Placeholder="E-Mail" WidthRequest="190"/>
+                <Button x:Name="SendRequest" Text="Отправить запрос" WidthRequest="190" Clicked="SendRequest_Clicked"/>
+            </StackLayout>
+            <CollectionView x:Name="Test">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout>
+                            <Label Text="{Binding profile_id}"></Label>
+                            <Label Text="{Binding user_id}"></Label>
+                            <Label Text="{Binding first_name}"></Label>
+                            <Label Text="{Binding last_name}"></Label>
+                            <Label Text="{Binding sec_name}"></Label>
+                            <Label Text="{Binding birth_date}"></Label>
+                            <Label Text="{Binding address}"></Label>
+                            <Label Text="{Binding email}"></Label>
+                            <Label Text="{Binding registration_date}"></Label>
+                            <Label Text="{Binding employment_type}"></Label>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

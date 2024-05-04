@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MobileBank.MainPage"
+             Title="Вход">
+
+    <ScrollView>
+        <StackLayout>
+            <Entry x:Name="login" Placeholder="Login"/>
+            <Entry x:Name="password" Placeholder="password"/>
+            <StackLayout Orientation="Horizontal">
+                <Button x:Name="Enter" Text="Enter" Clicked="Enter_Clicked"/>
+                <Button x:Name="Registration" Text="Registration" Clicked="Registration_Clicked"/>
+            </StackLayout>
+            <Picker Title="Pick your role" x:Name="RoplePicker">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>User</x:String>
+                        <x:String>BankEmployee</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+            <Label x:Name="testName"/>
+            <Button x:Name="RemoveUserProfile" Clicked="RemoveUserProfile_Clicked" Text="Убарть все из таблицы UserProfile"/>
+            <Button x:Name="DropAccountReport" Text="Удалить таблицу AccountReport" Clicked="DropAccountReport_Clicked"/>
+            <CollectionView x:Name="Test">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout>
+                            <Label Text="{Binding profile_id}"></Label>
+                            <Label Text="{Binding user_id}"></Label>
+                            <Label Text="{Binding first_name}"></Label>
+                            <Label Text="{Binding last_name}"></Label>
+                            <Label Text="{Binding sec_name}"></Label>
+                            <Label Text="{Binding birth_date}"></Label>
+                            <Label Text="{Binding address}"></Label>
+                            <Label Text="{Binding email}"></Label>
+                            <Label Text="{Binding registration_date}"></Label>
+                            <Label Text="{Binding employment_type}"></Label>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
